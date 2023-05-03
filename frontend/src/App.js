@@ -1,10 +1,15 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { LoginPage, SignUpPage } from './routes/Routes';
 
 function App() {
   return (
-    <div className="text-[#FFC090]">
-      APP component
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={ <LoginPage /> } />
+        <Route path="/signup" element={ <SignUpPage /> } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
