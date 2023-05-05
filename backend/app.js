@@ -1,12 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
+
 import errors from "./middlewares/errors.js";
 import ErrorHandler from "./utils/ErrorHandler.js";
+import connectDB from "./database/database.js"
 
 const app = express();
 
 // config
 dotenv.config({ path: "./.env" });
+
+// database connection
+connectDB();
 
 app.use("/", (req, res, next) => {
     const user = undefined;
