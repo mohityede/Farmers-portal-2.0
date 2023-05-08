@@ -1,0 +1,1 @@
+export const usersUrl = "http://localhost:7000/api/users";

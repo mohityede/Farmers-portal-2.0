@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { IoMdEyeOff, IoMdEye } from 'react-icons/io';
 import { MdOutlineAddAPhoto } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import styles from '../../styles/styles';
-
+import { usersUrl } from '../../server.js';
 import '../../App.css';
 
 const Signup = () => {
@@ -14,11 +15,26 @@ const Signup = () => {
     const [visible, setVisible] = useState(false);
     const [avatar, setAvatar] = useState(null);
 
-    const handleSubmit = () => {
-        console.log("Submitted");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("image", avatar);
+
+            const config = { Headers: { "Content-Type": "multipart/form-data" } };
+            const res = await axios.post(`${usersUrl}/register`, formData, config);
+
+            const user = res.data.user;
+            console.log(user);
+        } catch (err) {
+            console.log(err);
+        }
     }
     const handleUpload = (e) => {
-        const file = e.target.file[0];
+        const file = e.target.files[0];
         setAvatar(file);
     }
     return (
@@ -128,6 +144,7 @@ const Signup = () => {
                                         name="avatar"
                                         id="file-input"
                                         accept=".jpg,.jpeg,.png"
+                                        onChange={ handleUpload }
                                         className="sr-only"
                                     />
                                 </label>
