@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 import errors from "./middlewares/errors.js";
 import connectDB from "./database/database.js"
@@ -15,6 +17,8 @@ connectDB();
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/users", userRoutes);
 

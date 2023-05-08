@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Data.now()
+        default: Date.now()
     },
     resetPasswordToken: String,
     resetPasswordTime: Date
