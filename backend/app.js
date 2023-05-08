@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 import errors from "./middlewares/errors.js";
 import connectDB from "./database/database.js"
@@ -18,13 +19,16 @@ connectDB();
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static("public"));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/users", userRoutes);
+app.use("/api/users", userRoutes);
 
 // for errorhandling
 app.use(errors);
 
-app.listen(process.env.PORT || 8000, () => {
-    console.log("Server is running on port 8000");
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+    console.log(`Server is running on localhost:${port}`);
 })
